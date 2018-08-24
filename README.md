@@ -23,10 +23,30 @@ include_directories(${catkin_INCLUDE_DIRS})  //find_package生成的catkin_INCLU
 add_exectuble(${PROJECT_NAME}_node    ...)内
 所有目标编译文件(.cpp)都要把路径写进去(src/...)生成可执行目标${PROJECT_NAME}_node
 ##
-target_link_libraries（<executableTargetName>，<lib1>，<lib2>，... <libN>）
+target_link_libraries(<executableTargetName>，<lib1>，<lib2>，... <libN>)
 链接可执行文件与库，在add_exectuble之后，也可在之前加入add_library,
-add_executable（foo src / foo.cpp）
-add_library（moo src / moo.cpp）
-target_link_libraries（foo moo） - 这将链接foo与libmoo.so
-一般target_link_libraries（${PROJECT_NAME}_node ${catkin_LIBRARIES})
+add_executable(foo src / foo.cpp)
+add_library(moo src / moo.cpp)
+target_link_libraries(foo moo)    链接foo与libmoo.so
+一般target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
 ##
+生成器
+add_message_files
+add_service_files
+add_action_files
+之后要
+generate_messages()
+以上要在catkin_package()之前,且依赖message_runtime
+catkin_package(
+...
+ CATKIN_DEPENDS message_runtime ...
+...)
+且
+find_package(catkin REQUIRED COMPONENTS message_generation)
+add_dependencies（${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}）
+   
+   
+   
+   
+   
+   
