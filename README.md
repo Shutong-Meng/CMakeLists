@@ -44,8 +44,19 @@ catkin_package(
 且
 find_package(catkin REQUIRED COMPONENTS message_generation)
 add_dependencies（${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}）
-   
-   
+
+
+##
+使用库
+生成静态库add_library(hello libx.cpp)       ->libhello.a
+生成共享库add_library(hello_shared SHARED libx.cpp)       ->libhello_shared.so
+libx.h中说明库内容（函数）
+可执行程序test.cpp
+add_executable(test test.cpp)
+target_link_libraries(test hello_shared)
+
+
+
    
    
    
